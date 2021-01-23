@@ -21,10 +21,12 @@
   },
   "homepage": "https://github.com/iakindev/deliquus#readme",
   "devDependencies": {
+    "@atolye15/eslint-config": "^1.2.0",
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "eslint": "^7.18.0",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1"
   }
