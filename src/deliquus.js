@@ -1,24 +1,22 @@
 import { cosmiconfig } from 'cosmiconfig';
+import c from 'chalk';
 
-const explorer = cosmiconfig('deliquus');
+const main = async () => {
+  console.log(c.cyan('Deliquus Project'));
 
-explorer
-  .search()
-  .then((result) => {
-    // result.config is the parsed configuration object.
-    // result.filepath is the path to the config file that was found.
-    // result.isEmpty is true if there was nothing to parse in the config file.
+  try {
+    const explorer = await cosmiconfig('deliquus').search();
 
-    if (result.isEmpty) {
-      console.log('Nothing to parse in the config');
+    if (explorer.isEmpty) {
+      console.log(c.red('Nothing to parse in the config'));
       process.exit(1);
     }
 
-    console.log(result.config);
-  })
-  .catch(() => {
-    console.log('No config found');
+    console.log(explorer.config);
+  } catch (error) {
+    console.log(c.red('No config found'));
     process.exit(1);
-  });
+  }
+};
 
-console.log('Deliquus Project');
+main();
