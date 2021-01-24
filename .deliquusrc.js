@@ -1,3 +1,4 @@
 module.exports = {
   paths: [],
+  extensions: [],
 };
