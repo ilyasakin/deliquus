@@ -1,5 +1,6 @@
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
+import ctx from './helpers/context';
 
 const main = async () => {
   console.log(c.cyan('Deliquus Project'));
@@ -12,11 +13,14 @@ const main = async () => {
       process.exit(1);
     }
 
-    console.log(explorer.config);
+    ctx.explorer = explorer;
   } catch (error) {
     console.log(c.red('No config found'));
     process.exit(1);
   }
+
+  const { paths, extensions } = ctx.explorer.config;
+  console.log({ paths, extensions });
 };
 
 main();
