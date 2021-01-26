@@ -19,8 +19,15 @@ const main = async () => {
     process.exit(1);
   }
 
-  const { paths, extensions, testExtensions, storyExtensions } = ctx.explorer.config;
-  console.log({ paths, extensions, testExtensions, storyExtensions });
+  const {
+    paths,
+    extensions,
+    checkTests,
+    testExtensions,
+    checkStories,
+    storyExtensions,
+  } = ctx.explorer.config;
+  console.log({ paths, extensions, checkTests, testExtensions, checkStories, storyExtensions });
 
   if (!paths || paths.length === 0) {
     console.error(c.red('No path found'));
@@ -32,12 +39,12 @@ const main = async () => {
     process.exit(1);
   }
 
-  if (!testExtensions || testExtensions.length === 0) {
+  if (checkTests && (!testExtensions || testExtensions.length === 0)) {
     console.error(c.red('No test extension found'));
     process.exit(1);
   }
 
-  if (!storyExtensions || storyExtensions.length === 0) {
+  if (checkStories && (!storyExtensions || storyExtensions.length === 0)) {
     console.error(c.red('No story extension found'));
     process.exit(1);
   }
