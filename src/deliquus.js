@@ -1,6 +1,7 @@
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
 import ctx from './helpers/context';
+import crash from './helpers/crash';
 
 const main = async () => {
   console.log(c.cyan('Deliquus Project'));
@@ -8,15 +9,11 @@ const main = async () => {
   try {
     const explorer = await cosmiconfig('deliquus').search();
 
-    if (explorer.isEmpty) {
-      console.error(c.red('Nothing to parse in the config'));
-      process.exit(1);
-    }
+    if (explorer.isEmpty) crash('Nothing to parse in the config');
 
     ctx.explorer = explorer;
   } catch (error) {
-    console.error(c.red('No config found'));
-    process.exit(1);
+    crash('No config found');
   }
 
   const {
@@ -29,25 +26,15 @@ const main = async () => {
   } = ctx.explorer.config;
   console.log({ paths, extensions, checkTests, testExtensions, checkStories, storyExtensions });
 
-  if (!paths || paths.length === 0) {
-    console.error(c.red('No path found'));
-    process.exit(1);
-  }
+  if (!paths || paths.length === 0) crash('No path found');
 
-  if (!extensions || extensions.length === 0) {
-    console.error(c.red('No extension found'));
-    process.exit(1);
-  }
+  if (!extensions || extensions.length === 0) crash('No extension found');
 
-  if (checkTests && (!testExtensions || testExtensions.length === 0)) {
-    console.error(c.red('No test extension found'));
-    process.exit(1);
-  }
+  if (checkTests && (!testExtensions || testExtensions.length === 0))
+    crash('No test extension found');
 
-  if (checkStories && (!storyExtensions || storyExtensions.length === 0)) {
-    console.error(c.red('No story extension found'));
-    process.exit(1);
-  }
+  if (checkStories && (!storyExtensions || storyExtensions.length === 0))
+    crash('No story extension found');
 };
 
 main();
