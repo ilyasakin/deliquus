@@ -19,8 +19,8 @@ const main = async () => {
     process.exit(1);
   }
 
-  const { paths, extensions } = ctx.explorer.config;
-  console.log({ paths, extensions });
+  const { paths, extensions, testExtensions, storyExtensions } = ctx.explorer.config;
+  console.log({ paths, extensions, testExtensions, storyExtensions });
 };
 
 main();
