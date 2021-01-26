@@ -1,7 +1,7 @@
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
-import ctx from './helpers/context';
-import crash from './helpers/crash';
+import ctx from './helpers/context.ts';
+import crash from './helpers/crash.ts';
 
 const main = async () => {
   console.log(c.cyan('Deliquus Project'));

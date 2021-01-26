@@ -1,6 +1,7 @@
 {
   "extends": ["@atolye15/eslint-config"],
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "import/extensions": "off"
   }
 }
