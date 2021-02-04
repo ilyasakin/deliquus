@@ -1,8 +1,5 @@
 module.exports = {
-  paths: [],
+  sources: [],
+  targets: [],
   extensions: [],
-  checkTests: false,
-  testExtensions: [],
-  checkStories: false,
-  storyExtensions: [],
 };

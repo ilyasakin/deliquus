@@ -1,11 +1,8 @@
 interface Context {
   explorer?: {
-    paths: string[];
+    sources: string[];
+    targets: string[];
     extensions: string[];
-    checkTests: boolean;
-    testExtensions: string[];
-    checkStories: boolean;
-    storyExtensions: string[];
   };
 }
 

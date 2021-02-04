@@ -2,6 +2,7 @@ import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
 import ctx from './helpers/context.ts';
 import crash from './helpers/crash.ts';
+import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty.ts';
 
 const main = async () => {
   console.log(c.cyan('Deliquus Project'));
@@ -16,25 +17,12 @@ const main = async () => {
     crash('No config found');
   }
 
-  const {
-    paths,
-    extensions,
-    checkTests,
-    testExtensions,
-    checkStories,
-    storyExtensions,
-  } = ctx.explorer.config;
-  console.log({ paths, extensions, checkTests, testExtensions, checkStories, storyExtensions });
+  const { sources, targets, extensions } = ctx.explorer.config;
+  console.log({ sources, targets, extensions });
 
-  if (!paths || paths.length === 0) crash('No path found');
-
-  if (!extensions || extensions.length === 0) crash('No extension found');
-
-  if (checkTests && (!testExtensions || testExtensions.length === 0))
-    crash('No test extension found');
-
-  if (checkStories && (!storyExtensions || storyExtensions.length === 0))
-    crash('No story extension found');
+  if (isUndefinedOrEmpty(sources)) crash('No source found');
+  if (isUndefinedOrEmpty(targets)) crash('No target found');
+  if (isUndefinedOrEmpty(extensions)) crash('No extension found');
 };
 
 main();
