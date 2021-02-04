@@ -1,5 +1,8 @@
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
+import ctx from './helpers/context.ts';
+import crash from './helpers/crash.ts';
+import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty.ts';
 
 const main = async () => {
   console.log(c.cyan('Deliquus Project'));
@@ -7,16 +10,19 @@ const main = async () => {
   try {
     const explorer = await cosmiconfig('deliquus').search();
 
-    if (explorer.isEmpty) {
-      console.log(c.red('Nothing to parse in the config'));
-      process.exit(1);
-    }
+    if (explorer.isEmpty) crash('Nothing to parse in the config');
 
-    console.log(explorer.config);
+    ctx.explorer = explorer;
   } catch (error) {
-    console.log(c.red('No config found'));
-    process.exit(1);
+    crash('No config found');
   }
+
+  const { sources, targets, extensions } = ctx.explorer.config;
+  console.log({ sources, targets, extensions });
+
+  if (isUndefinedOrEmpty(sources)) crash('No source found');
+  if (isUndefinedOrEmpty(targets)) crash('No target found');
+  if (isUndefinedOrEmpty(extensions)) crash('No extension found');
 };
 
 main();

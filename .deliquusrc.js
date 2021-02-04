@@ -1,4 +1,5 @@
 module.exports = {
-  paths: [],
+  sources: [],
+  targets: [],
   extensions: [],
 };
