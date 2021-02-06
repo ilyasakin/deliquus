@@ -1,4 +1,6 @@
 import filterByExtension from '../helpers/filterByExtension';
+import _mockConsole from '../mocks/console.mock';
+import _mockExit from '../mocks/exit.mock';
 
 describe('filterByExtension', () => {
   it('filters correctly', () => {
@@ -17,8 +19,8 @@ describe('filterByExtension', () => {
   });
 
   it('crashes when no match found', () => {
-    const mockExit = jest.spyOn(process, 'exit').mockImplementation();
-    const mockConsole = jest.spyOn(console, 'error').mockImplementation();
+    const mockExit = _mockExit;
+    const mockConsole = _mockConsole;
 
     filterByExtension(
       ['uncleBobSaysHi.spec.ts', 'somerandom.keys.dot.ts', '420.config.js'],
