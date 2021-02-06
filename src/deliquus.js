@@ -10,12 +10,15 @@ const main = async () => {
 
   try {
     const explorer = await cosmiconfig('deliquus').search();
+    if (!explorer) {
+      throw new Error('No config found');
+    }
 
     if (explorer.isEmpty) crash('Nothing to parse in the config');
 
     context = new Context(explorer);
   } catch (error) {
-    crash('No config found');
+    crash(error);
   }
 
   const { sources, targets, extensions } = context.explorer.config;
