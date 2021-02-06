@@ -12,8 +12,8 @@ User should be configure Deliquus to match the files as she/he want.
 
 ## Roadmap
 
-- Match files with single source directory and single target directory.
-- Match files with multiple source directory and multiple target directory.
+- Match files with single source directory and single target directory. ✔
+- Match files with multiple source directories and multiple target directories.
 - Publish
 
 ## Development
