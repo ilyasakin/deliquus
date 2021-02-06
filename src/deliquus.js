@@ -7,6 +7,7 @@ import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty.ts';
 import filterByExtension from './helpers/filterByExtension';
 import removeExtensions from './helpers/removeExtensions';
 import areArraysEqual from './helpers/areArraysEqual';
+import debug from './helpers/debug';
 
 const main = async () => {
   let context = null;
@@ -26,7 +27,7 @@ const main = async () => {
   }
 
   const { sources, targets, extensions } = context.explorer.config;
-  console.log({ sources, targets, extensions });
+  debug(c.cyan('config:'), { sources, targets, extensions });
 
   if (isUndefinedOrEmpty(sources)) crash('No source found');
   if (isUndefinedOrEmpty(targets)) crash('No target found');
@@ -36,14 +37,16 @@ const main = async () => {
   const targetsFilenames = fs.readdirSync(`${process.cwd()}/${targets[0]}`);
 
   const filteredSources = filterByExtension(sourcesFilenames, 'ts');
-  console.log(filteredSources);
+  debug('filteredSources:', filteredSources);
+
   const filteredTargets = filterByExtension(targetsFilenames, extensions[0]);
-  console.log(filteredTargets);
+  debug('filteredTargets:', filteredTargets);
 
   const sourcesFilenamesWoExtensions = removeExtensions(filteredSources, 'ts');
-  console.log(sourcesFilenamesWoExtensions);
+  debug('sourcesFilenamesWoExtensions', sourcesFilenamesWoExtensions);
+
   const targetsFilenamesWoExtensions = removeExtensions(filteredTargets, 'test.ts');
-  console.log(targetsFilenamesWoExtensions);
+  debug('targetsFilenamesWoExtensions', targetsFilenamesWoExtensions);
 
   if (!areArraysEqual(sourcesFilenamesWoExtensions, targetsFilenamesWoExtensions))
     crash('Not same');

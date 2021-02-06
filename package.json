@@ -5,9 +5,9 @@
   "main": "src/deliquus.js",
   "scripts": {
     "start": "node dist/deliquus.js",
-    "dev": "nodemon --exec babel-node src/deliquus.js --extensions '.js,.ts'",
+    "dev": "DEBUG=1 nodemon --exec babel-node src/deliquus.js --extensions '.js,.ts'",
     "build": "yarn run babel src -d dist --copy-files",
-    "test": "jest"
+    "test": "DEBUG=1 jest"
   },
   "repository": {
     "type": "git",
