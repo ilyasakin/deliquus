@@ -1,10 +1,11 @@
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
-import ctx from './helpers/context.ts';
+import Context from './helpers/context.ts';
 import crash from './helpers/crash.ts';
 import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty.ts';
 
 const main = async () => {
+  let context = null;
   console.log(c.cyan('Deliquus Project'));
 
   try {
@@ -12,12 +13,12 @@ const main = async () => {
 
     if (explorer.isEmpty) crash('Nothing to parse in the config');
 
-    ctx.explorer = explorer;
+    context = new Context(explorer);
   } catch (error) {
     crash('No config found');
   }
 
-  const { sources, targets, extensions } = ctx.explorer.config;
+  const { sources, targets, extensions } = context.explorer.config;
   console.log({ sources, targets, extensions });
 
   if (isUndefinedOrEmpty(sources)) crash('No source found');

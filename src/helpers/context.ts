@@ -1,5 +1,11 @@
-import Context from '../types/context';
+import Explorer from '../types/explorer';
 
-const ctx: Context = {};
+class ctx {
+  explorer: Explorer;
+
+  constructor(explorer: Explorer) {
+    this.explorer = explorer;
+  }
+}
 
 export default ctx;
