@@ -49,7 +49,7 @@ const main = async () => {
   debug('targetsFilenamesWoExtensions', targetsFilenamesWoExtensions);
 
   if (!areArraysEqual(sourcesFilenamesWoExtensions, targetsFilenamesWoExtensions))
-    crash('Not same');
+    crash('Some files are missing');
 };
 
 main();
