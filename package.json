@@ -1,11 +1,11 @@
 {
   "name": "deliquus",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
-  "main": "src/deliquus.js",
+  "main": "src/deliquus.ts",
   "scripts": {
-    "start": "node dist/deliquus.js",
-    "dev": "DEBUG=1 nodemon --exec babel-node src/deliquus.js --extensions '.js,.ts'",
+    "start": "node dist/deliquus.ts",
+    "dev": "DEBUG=1 nodemon --exec babel-node src/deliquus.ts --extensions '.js,.ts'",
     "build": "yarn run babel src -d dist --copy-files",
     "test": "DEBUG=1 jest"
   },

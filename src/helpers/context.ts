@@ -1,9 +1,9 @@
-import Explorer from '../types/explorer';
+import { CosmiconfigResult } from 'cosmiconfig/dist/types';
 
 class ctx {
-  explorer: Explorer;
+  explorer: CosmiconfigResult;
 
-  constructor(explorer: Explorer) {
+  constructor(explorer: CosmiconfigResult) {
     this.explorer = explorer;
   }
 }
