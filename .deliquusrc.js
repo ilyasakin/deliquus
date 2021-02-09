@@ -1,4 +1,4 @@
 module.exports = {
-  sources: [{ path: 'src/helpers/', extension: 'ts' }],
-  targets: [{ path: 'src/__tests__/', extension: 'test.ts' }],
+  sources: [{ pattern: 'src/helpers/**/*.ts' }],
+  targets: [{ pattern: 'src/__tests__/**/*.test.ts' }],
 };
