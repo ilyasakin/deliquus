@@ -1,5 +1,6 @@
-const removeExtensions = (target: string[], extension: string): string[] => {
-  return target.map((value) => value.replace(`.${extension}`, ''));
+const removeExtensions = (target: string[]): string[] => {
+  const regex = /[^.]*/;
+  return target.map((value) => (regex.exec(value) as string[])[0]);
 };
 
 export default removeExtensions;

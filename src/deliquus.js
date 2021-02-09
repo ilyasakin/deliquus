@@ -1,13 +1,13 @@
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
-import fs from 'fs';
+import glob from 'glob';
 import Context from './helpers/context.ts';
 import crash from './helpers/crash.ts';
 import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty.ts';
-import filterByExtension from './helpers/filterByExtension';
 import removeExtensions from './helpers/removeExtensions';
 import areArraysEqual from './helpers/areArraysEqual';
 import debug from './helpers/debug';
+import removePath from './helpers/removePath';
 
 const main = async () => {
   let context = null;
@@ -26,30 +26,31 @@ const main = async () => {
     crash(error);
   }
 
-  const { sources, targets, extensions } = context.explorer.config;
-  debug(c.cyan('config:'), { sources, targets, extensions });
+  const { sources, targets } = context.explorer.config;
+  debug(c.cyan('config:'), { sources, targets });
 
   if (isUndefinedOrEmpty(sources)) crash('No source found');
   if (isUndefinedOrEmpty(targets)) crash('No target found');
-  if (isUndefinedOrEmpty(extensions)) crash('No extension found');
 
-  const sourcesFilenames = fs.readdirSync(`${process.cwd()}/${sources[0]}`);
-  const targetsFilenames = fs.readdirSync(`${process.cwd()}/${targets[0]}`);
+  // const sourcesFilenames = fs.readdirSync(`${process.cwd()}/${sources[0].path}`);
+  const sourcesFilenames = glob.sync(sources[0].pattern, { nodir: true });
+  console.log(sourcesFilenames);
+  const targetsFilenames = glob.sync(targets[0].pattern, { nodir: true });
+  console.log(sourcesFilenames);
 
-  const filteredSources = filterByExtension(sourcesFilenames, 'ts');
-  debug('filteredSources:', filteredSources);
+  const sourcesFilenamesWoExtensions = removeExtensions(sourcesFilenames);
+  debug('Sources filenames w/o extensions:', sourcesFilenamesWoExtensions);
 
-  const filteredTargets = filterByExtension(targetsFilenames, extensions[0]);
-  debug('filteredTargets:', filteredTargets);
+  const targetsFilenamesWoExtensions = removeExtensions(targetsFilenames);
+  debug('Targets filenames w/o extensions:', targetsFilenamesWoExtensions);
 
-  const sourcesFilenamesWoExtensions = removeExtensions(filteredSources, 'ts');
-  debug('sourcesFilenamesWoExtensions', sourcesFilenamesWoExtensions);
+  const sourcesWithRemovedPaths = removePath(sourcesFilenamesWoExtensions);
+  debug('Sources with removed paths:', sourcesWithRemovedPaths);
+  const targetsWithRemovedPaths = removePath(targetsFilenamesWoExtensions);
+  debug('Targets with removed paths:', targetsWithRemovedPaths);
 
-  const targetsFilenamesWoExtensions = removeExtensions(filteredTargets, 'test.ts');
-  debug('targetsFilenamesWoExtensions', targetsFilenamesWoExtensions);
-
-  if (!areArraysEqual(sourcesFilenamesWoExtensions, targetsFilenamesWoExtensions))
-    crash('Not same');
+  if (!areArraysEqual(sourcesWithRemovedPaths, targetsWithRemovedPaths))
+    crash('Some files are missing');
 };
 
 main();

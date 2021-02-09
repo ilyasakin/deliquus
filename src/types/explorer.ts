@@ -1,7 +1,6 @@
 interface Explorer {
-  sources: string[];
-  targets: string[];
-  extensions: string[];
+  sources: { pattern: string }[];
+  targets: { pattern: string }[];
 }
 
 export default Explorer;
