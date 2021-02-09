@@ -1,9 +1,9 @@
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
 import glob from 'glob';
-import Context from './helpers/context.ts';
-import crash from './helpers/crash.ts';
-import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty.ts';
+import Context from './helpers/context';
+import crash from './helpers/crash';
+import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty';
 import removeExtensions from './helpers/removeExtensions';
 import areArraysEqual from './helpers/areArraysEqual';
 import debug from './helpers/debug';
@@ -19,13 +19,12 @@ const main = async () => {
       throw new Error('No config found');
     }
 
-    if (explorer.isEmpty) crash('Nothing to parse in the config');
-
     context = new Context(explorer);
   } catch (error) {
     crash(error);
   }
 
+  if (!context?.explorer) return;
   const { sources, targets } = context.explorer.config;
   debug(c.cyan('config:'), { sources, targets });
 
