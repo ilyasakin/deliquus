@@ -26,26 +26,25 @@ const main = async () => {
     crash(error);
   }
 
-  const { sources, targets, extensions } = context.explorer.config;
-  debug(c.cyan('config:'), { sources, targets, extensions });
+  const { sources, targets } = context.explorer.config;
+  debug(c.cyan('config:'), { sources, targets });
 
   if (isUndefinedOrEmpty(sources)) crash('No source found');
   if (isUndefinedOrEmpty(targets)) crash('No target found');
-  if (isUndefinedOrEmpty(extensions)) crash('No extension found');
 
-  const sourcesFilenames = fs.readdirSync(`${process.cwd()}/${sources[0]}`);
-  const targetsFilenames = fs.readdirSync(`${process.cwd()}/${targets[0]}`);
+  const sourcesFilenames = fs.readdirSync(`${process.cwd()}/${sources[0].path}`);
+  const targetsFilenames = fs.readdirSync(`${process.cwd()}/${targets[0].path}`);
 
-  const filteredSources = filterByExtension(sourcesFilenames, 'ts');
+  const filteredSources = filterByExtension(sourcesFilenames, sources[0].extension);
   debug('filteredSources:', filteredSources);
 
-  const filteredTargets = filterByExtension(targetsFilenames, extensions[0]);
+  const filteredTargets = filterByExtension(targetsFilenames, targets[0].extension);
   debug('filteredTargets:', filteredTargets);
 
-  const sourcesFilenamesWoExtensions = removeExtensions(filteredSources, 'ts');
+  const sourcesFilenamesWoExtensions = removeExtensions(filteredSources, sources[0].extension);
   debug('sourcesFilenamesWoExtensions', sourcesFilenamesWoExtensions);
 
-  const targetsFilenamesWoExtensions = removeExtensions(filteredTargets, 'test.ts');
+  const targetsFilenamesWoExtensions = removeExtensions(filteredTargets, targets[0].extension);
   debug('targetsFilenamesWoExtensions', targetsFilenamesWoExtensions);
 
   if (!areArraysEqual(sourcesFilenamesWoExtensions, targetsFilenamesWoExtensions))
