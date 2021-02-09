@@ -32,11 +32,10 @@ const main = async () => {
   if (isUndefinedOrEmpty(sources)) crash('No source found');
   if (isUndefinedOrEmpty(targets)) crash('No target found');
 
-  // const sourcesFilenames = fs.readdirSync(`${process.cwd()}/${sources[0].path}`);
   const sourcesFilenames = glob.sync(sources[0].pattern, { nodir: true });
-  console.log(sourcesFilenames);
+  debug("Sources' filenames:", sourcesFilenames);
   const targetsFilenames = glob.sync(targets[0].pattern, { nodir: true });
-  console.log(sourcesFilenames);
+  debug("Targets' filenames:", targetsFilenames);
 
   const sourcesFilenamesWoExtensions = removeExtensions(sourcesFilenames);
   debug('Sources filenames w/o extensions:', sourcesFilenamesWoExtensions);
