@@ -36,16 +36,16 @@ const main = async () => {
   const targetsFilenames = fs.readdirSync(`${process.cwd()}/${targets[0].path}`);
 
   const filteredSources = filterByExtension(sourcesFilenames, sources[0].extension);
-  debug('filteredSources:', filteredSources);
+  debug('Filtered Sources:', filteredSources);
 
   const filteredTargets = filterByExtension(targetsFilenames, targets[0].extension);
-  debug('filteredTargets:', filteredTargets);
+  debug('Filtered Targets:', filteredTargets);
 
   const sourcesFilenamesWoExtensions = removeExtensions(filteredSources, sources[0].extension);
-  debug('sourcesFilenamesWoExtensions', sourcesFilenamesWoExtensions);
+  debug('Sources filenames w/o extensions:', sourcesFilenamesWoExtensions);
 
   const targetsFilenamesWoExtensions = removeExtensions(filteredTargets, targets[0].extension);
-  debug('targetsFilenamesWoExtensions', targetsFilenamesWoExtensions);
+  debug('Targets filenames w/o extensions:', targetsFilenamesWoExtensions);
 
   if (!areArraysEqual(sourcesFilenamesWoExtensions, targetsFilenamesWoExtensions))
     crash('Some files are missing');
