@@ -52,6 +52,8 @@ const main = async () => {
     crash(
       `Missing Files: ${getDistinctArrayValues(sourcesWithRemovedPaths, targetsWithRemovedPaths)}`,
     );
+
+  console.log(c.bold.green('All OK!'));
 };
 
 main();
