@@ -7,7 +7,7 @@ describe('listArray', () => {
 
   it('lists correctly with prefix', () => {
     expect(listArray(['context', 'crash'], ' MISSING: ')).toEqual(
-      `\n MISSING: context\n MISSING: crash`,
+      `\n MISSING:  context\n MISSING:  crash`,
     );
   });
 });
