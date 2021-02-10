@@ -1,5 +1,6 @@
 const getDistinctArrayValues = (source: unknown[], target: unknown[]): unknown[] => {
-  return source.filter((value) => !target.includes(value));
+  const set = new Set(target);
+  return source.filter((value) => !set.has(value));
 };
 
 export default getDistinctArrayValues;
