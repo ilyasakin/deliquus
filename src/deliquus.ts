@@ -53,7 +53,7 @@ const main = async () => {
       `Missing Files: ${getDistinctArrayValues(sourcesWithRemovedPaths, targetsWithRemovedPaths)}`,
     );
 
-  console.log(c.bold.green('All OK!'));
+  console.log(c.bgGreen.bold.black(' ALL OK! '));
 };
 
 main();
