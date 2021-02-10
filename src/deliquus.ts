@@ -9,6 +9,7 @@ import areArraysEqual from './helpers/areArraysEqual';
 import debug from './helpers/debug';
 import removePath from './helpers/removePath';
 import getDistinctArrayValues from './helpers/getDistinctArrayValues';
+import listArray from './helpers/listArray';
 
 const main = async () => {
   let context = null;
@@ -50,7 +51,10 @@ const main = async () => {
 
   if (!areArraysEqual(sourcesWithRemovedPaths, targetsWithRemovedPaths))
     crash(
-      `Missing Files: ${getDistinctArrayValues(sourcesWithRemovedPaths, targetsWithRemovedPaths)}`,
+      listArray(
+        getDistinctArrayValues(sourcesWithRemovedPaths, targetsWithRemovedPaths) as string[],
+        c.bgRed.whiteBright.bold(' MISSING: '),
+      ),
     );
 
   console.log(c.bgGreen.bold.black(' ALL OK! '));
