@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/deliquus.js",
     "dev": "DEBUG=1 nodemon --exec babel-node src/deliquus.ts --extensions '.js,.ts'",
-    "build": "yarn run babel --extensions '.js,.ts' src -d dist --copy-files",
+    "build": "yarn run babel --extensions '.js,.ts' --ignore '**/__tests__' src -d dist --copy-files",
     "test": "DEBUG=1 jest",
     "build:then:run": "yarn build && yarn start"
   },
