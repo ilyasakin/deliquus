@@ -8,6 +8,7 @@ import removeExtensions from './helpers/removeExtensions';
 import areArraysEqual from './helpers/areArraysEqual';
 import debug from './helpers/debug';
 import removePath from './helpers/removePath';
+import getDistinctArrayValues from './helpers/getDistinctArrayValues';
 
 const main = async () => {
   let context = null;
@@ -48,7 +49,9 @@ const main = async () => {
   debug('Targets with removed paths:', targetsWithRemovedPaths);
 
   if (!areArraysEqual(sourcesWithRemovedPaths, targetsWithRemovedPaths))
-    crash('Some files are missing');
+    crash(
+      `Missing Files: ${getDistinctArrayValues(sourcesWithRemovedPaths, targetsWithRemovedPaths)}`,
+    );
 };
 
 main();
