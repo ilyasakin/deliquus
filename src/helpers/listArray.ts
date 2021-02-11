@@ -1,4 +1,4 @@
-const listArray = (array: string[], prefix?: string): string => {
+const listArray = (array: unknown[], prefix?: string): string => {
   return array.map((value) => `\n${prefix ? `${prefix} ` : ''}${value}`).join('');
 };
 

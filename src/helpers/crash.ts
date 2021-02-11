@@ -1,7 +1,7 @@
 import c from 'chalk';
 
-const crash = (errorMsg: string): void => {
-  console.error(c.red(errorMsg));
+const crash = (...params: unknown[]): void => {
+  console.error(c.red(...params));
   process.exit(1);
 };
 
