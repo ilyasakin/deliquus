@@ -26,8 +26,7 @@ const main = async () => {
     crash(error);
   }
 
-  if (!context?.explorer) return;
-  const { sources, targets } = context.explorer.config;
+  const { sources, targets } = context?.explorer?.config;
   debug(c.cyan('config:'), { sources, targets });
 
   if (isUndefinedOrEmpty(sources)) crash('No source found');
