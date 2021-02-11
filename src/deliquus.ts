@@ -10,6 +10,7 @@ import debug from './helpers/debug';
 import removePath from './helpers/removePath';
 import listArray from './helpers/listArray';
 import genReport from './helpers/genReport';
+import validateConfig from './helpers/validateConfig';
 
 const main = async () => {
   let context = null;
@@ -22,12 +23,12 @@ const main = async () => {
     }
 
     context = new Context(explorer);
+    validateConfig(context?.explorer?.config);
   } catch (error) {
     crash(error);
   }
 
-  if (!context?.explorer) return;
-  const { sources, targets } = context.explorer.config;
+  const { sources, targets } = context?.explorer?.config;
   debug(c.cyan('config:'), { sources, targets });
 
   if (isUndefinedOrEmpty(sources)) crash('No source found');
