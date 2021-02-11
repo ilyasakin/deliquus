@@ -8,7 +8,8 @@ import removeExtensions from './helpers/removeExtensions';
 import areArraysEqual from './helpers/areArraysEqual';
 import debug from './helpers/debug';
 import removePath from './helpers/removePath';
-import getDistinctArrayValues from './helpers/getDistinctArrayValues';
+import listArray from './helpers/listArray';
+import genReport from './helpers/genReport';
 
 const main = async () => {
   let context = null;
@@ -48,12 +49,17 @@ const main = async () => {
   const targetsWithRemovedPaths = removePath(targetsFilenamesWoExtensions);
   debug('Targets with removed paths:', targetsWithRemovedPaths);
 
+  const report = genReport(sourcesWithRemovedPaths, targetsWithRemovedPaths);
+
   if (!areArraysEqual(sourcesWithRemovedPaths, targetsWithRemovedPaths))
     crash(
-      `Missing Files: ${getDistinctArrayValues(sourcesWithRemovedPaths, targetsWithRemovedPaths)}`,
+      listArray(report.exists, c.bgGreen.bold.black(' EXISTS: ')),
+      listArray(report.missing, c.bgRed.whiteBright.bold(' MISSING: ')),
     );
 
-  console.log(c.bold.green('All OK!'));
+  console.log(listArray(report.exists, c.bgGreen.bold.black(' EXISTS: ')));
+
+  console.log(`\n${c.bgGreen.bold.black(' PASS! ')}`);
 };
 
 main();
