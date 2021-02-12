@@ -1,13 +1,14 @@
-import getDistinctArrayValues from './getDistinctArrayValues';
-import getMutualArrayValues from './getMutualArrayValues';
+import ParsedPath from '../types/ParsedPath';
+import getExisting from './getExisting';
+import getMissing from './getMissing';
 
 const genReport = (
-  source: unknown[],
-  target: unknown[],
-): { exists: unknown[]; missing: unknown[] } => {
+  source: ParsedPath[],
+  target: ParsedPath[],
+): { exists: ParsedPath[]; missing: ParsedPath[] } => {
   return {
-    exists: getMutualArrayValues(source, target),
-    missing: getDistinctArrayValues(source, target),
+    exists: getExisting(source, target),
+    missing: getMissing(source, target),
   };
 };
 
