@@ -4,13 +4,11 @@ import glob from 'glob';
 import Context from './helpers/context';
 import crash from './helpers/crash';
 import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty';
-import removeExtensions from './helpers/removeExtensions';
-import areArraysEqual from './helpers/areArraysEqual';
 import debug from './helpers/debug';
-import removePath from './helpers/removePath';
 import listArray from './helpers/listArray';
 import genReport from './helpers/genReport';
 import validateConfig from './helpers/validateConfig';
+import parsePath from './helpers/parsePath';
 
 const main = async () => {
   let context = null;
@@ -34,31 +32,44 @@ const main = async () => {
   if (isUndefinedOrEmpty(sources)) crash('No source found');
   if (isUndefinedOrEmpty(targets)) crash('No target found');
 
-  const sourcesFilenames = glob.sync(sources[0].pattern, { nodir: true });
-  debug("Sources' filenames:", sourcesFilenames);
-  const targetsFilenames = glob.sync(targets[0].pattern, { nodir: true });
-  debug("Targets' filenames:", targetsFilenames);
+  const sourcesPaths = glob.sync(sources[0].pattern, { nodir: true });
+  debug("Sources' Paths:", sourcesPaths);
+  const targetsPaths = glob.sync(targets[0].pattern, { nodir: true });
+  debug("Targets' Paths:", targetsPaths);
 
-  const sourcesFilenamesWoExtensions = removeExtensions(sourcesFilenames);
-  debug('Sources filenames w/o extensions:', sourcesFilenamesWoExtensions);
+  const parsedSources = sourcesPaths.map((path) => parsePath(path));
+  debug('Parsed Sources:', parsedSources);
+  const parsedTargets = targetsPaths.map((path) => parsePath(path));
+  debug('Parsed Targets:', parsedTargets);
 
-  const targetsFilenamesWoExtensions = removeExtensions(targetsFilenames);
-  debug('Targets filenames w/o extensions:', targetsFilenamesWoExtensions);
+  const report = genReport(parsedSources, parsedTargets);
+  debug(report);
 
-  const sourcesWithRemovedPaths = removePath(sourcesFilenamesWoExtensions);
-  debug('Sources with removed paths:', sourcesWithRemovedPaths);
-  const targetsWithRemovedPaths = removePath(targetsFilenamesWoExtensions);
-  debug('Targets with removed paths:', targetsWithRemovedPaths);
-
-  const report = genReport(sourcesWithRemovedPaths, targetsWithRemovedPaths);
-
-  if (!areArraysEqual(sourcesWithRemovedPaths, targetsWithRemovedPaths))
+  if (report.missing.length !== 0) {
     crash(
-      listArray(report.exists, c.bgGreen.bold.black(' EXISTS: ')),
-      listArray(report.missing, c.bgRed.whiteBright.bold(' MISSING: ')),
+      listArray(
+        report.exists.map(
+          ({ directory, filename, extension }) => `${directory}/${filename}${extension}`,
+        ),
+        c.bgGreen.bold.black(' EXISTS: '),
+      ),
+      listArray(
+        report.missing.map(
+          ({ directory, filename, extension }) => `${directory}/${filename}${extension}`,
+        ),
+        c.bgRed.whiteBright.bold(' MISSING: '),
+      ),
     );
+  }
 
-  console.log(listArray(report.exists, c.bgGreen.bold.black(' EXISTS: ')));
+  console.log(
+    listArray(
+      report.exists.map(
+        ({ directory, filename, extension }) => `${directory}/${filename}${extension}`,
+      ),
+      c.bgGreen.bold.black(' EXISTS: '),
+    ),
+  );
 
   console.log(`\n${c.bgGreen.bold.black(' PASS! ')}`);
 };
