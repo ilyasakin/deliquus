@@ -11,7 +11,7 @@ import genReport from './helpers/genReport';
 import validateConfig from './helpers/validateConfig';
 import parsePath from './helpers/parsePath';
 
-program.version('0.1.0').option('-c, --continueWhenFailed', 'Returns with 0 if fails');
+program.version('0.2.0').option('-c, --continueWhenFailed', 'Returns with 0 if fails');
 program.parse(process.argv);
 
 const main = async () => {
