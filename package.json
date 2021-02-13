@@ -5,7 +5,7 @@
   "main": "src/deliquus.ts",
   "scripts": {
     "start": "node dist/deliquus.js",
-    "dev": "DEBUG=1 nodemon --exec babel-node src/deliquus.ts --extensions '.js,.ts'",
+    "dev": "DEBUG=1 nodemon --exec babel-node --extensions '.js,.ts' src/deliquus.ts",
     "build": "yarn run babel --extensions '.js,.ts' --ignore '**/__tests__' src -d dist --copy-files",
     "test": "DEBUG=1 jest"
   },
@@ -43,6 +43,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.13",
     "chalk": "^4.1.0",
+    "commander": "^7.0.0",
     "cosmiconfig": "^7.0.0",
     "glob": "^7.1.6",
     "ts-node": "^9.1.1"
