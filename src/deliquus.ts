@@ -10,13 +10,14 @@ import listArray from './helpers/listArray';
 import genReport from './helpers/genReport';
 import validateConfig from './helpers/validateConfig';
 import parsePath from './helpers/parsePath';
+import Explorer from './types/Explorer';
 
-program.version('0.2.1').option('-c, --continueWhenFailed', 'Returns with 0 if fails');
+program.version('0.3.0').option('-c, --continueWhenFailed', 'Returns with 0 if fails');
 program.parse(process.argv);
 
 const main = async () => {
   let context = null;
-  console.log(c.cyan('Deliquus Project'));
+  let somethingMissing = false;
 
   try {
     const explorer = await cosmiconfig('deliquus').search();
@@ -30,52 +31,57 @@ const main = async () => {
     crash(error);
   }
 
-  const { sources, targets } = context?.explorer?.config;
+  const { sources, targets } = context?.explorer?.config as Explorer;
   debug(c.cyan('config:'), { sources, targets });
 
   if (isUndefinedOrEmpty(sources)) crash('No source found');
   if (isUndefinedOrEmpty(targets)) crash('No target found');
 
-  const sourcesPaths = glob.sync(sources[0].pattern, { nodir: true });
-  debug("Sources' Paths:", sourcesPaths);
-  const targetsPaths = glob.sync(targets[0].pattern, { nodir: true });
-  debug("Targets' Paths:", targetsPaths);
+  sources.forEach((source) => {
+    source.for.forEach((targetName) => {
+      const sourcePaths = glob.sync(source.pattern, { nodir: true });
+      debug('Source Paths:', sourcePaths);
 
-  const parsedSources = sourcesPaths.map((path) => parsePath(path));
-  debug('Parsed Sources:', parsedSources);
-  const parsedTargets = targetsPaths.map((path) => parsePath(path));
-  debug('Parsed Targets:', parsedTargets);
+      const target = targets.find((tgt) => tgt.name === targetName);
+      const targetPaths = glob.sync(target?.pattern as string, { nodir: true });
+      debug('Target Paths:', targetPaths);
 
-  const report = genReport(parsedSources, parsedTargets);
-  debug(report);
+      const parsedSource = sourcePaths.map((path) => parsePath(path));
+      debug('Parsed Path:', parsedSource);
 
-  if (report.missing.length !== 0) {
-    crash(
-      listArray(
-        report.exists.map(
-          ({ directory, filename, extension }) => `${directory}/${filename}${extension}`,
+      const parsedTarget = targetPaths.map((path) => parsePath(path));
+      debug('Parsed Path:', parsedTarget);
+
+      const report = genReport(parsedSource, parsedTarget);
+      debug(report);
+
+      if (report.missing.length >= 1) {
+        somethingMissing = true;
+      }
+
+      console.log(c.cyan(`\n${target?.name} for ${source.name}`));
+      console.log(
+        listArray(
+          report.exists.map(
+            ({ directory, filename, extension }) => `${directory}/${filename}${extension}`,
+          ),
+          c.bgGreen.bold.black(' EXISTING: '),
         ),
-        c.bgGreen.bold.black(' EXISTS: '),
-      ),
-      listArray(
-        report.missing.map(
-          ({ directory, filename, extension }) => `${directory}/${filename}${extension}`,
+        listArray(
+          report.missing.map(
+            ({ directory, filename, extension }) => `${directory}/${filename}${extension}`,
+          ),
+          c.bgRed.whiteBright.bold(' MISSING: '),
         ),
-        c.bgRed.whiteBright.bold(' MISSING: '),
-      ),
-    );
+      );
+    });
+  });
+
+  if (somethingMissing) {
+    crash(`\n${c.bgRed.whiteBright.bold(' FAILED! ')}`);
+  } else {
+    console.log(`\n${c.bgGreen.bold.black(' PASS! ')}`);
   }
-
-  console.log(
-    listArray(
-      report.exists.map(
-        ({ directory, filename, extension }) => `${directory}/${filename}${extension}`,
-      ),
-      c.bgGreen.bold.black(' EXISTS: '),
-    ),
-  );
-
-  console.log(`\n${c.bgGreen.bold.black(' PASS! ')}`);
 };
 
 main();
