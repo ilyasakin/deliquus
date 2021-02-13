@@ -1,6 +1,7 @@
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
 import glob from 'glob';
+import { program } from 'commander';
 import Context from './helpers/context';
 import crash from './helpers/crash';
 import isUndefinedOrEmpty from './helpers/isUndefinedOrEmpty';
@@ -9,6 +10,9 @@ import listArray from './helpers/listArray';
 import genReport from './helpers/genReport';
 import validateConfig from './helpers/validateConfig';
 import parsePath from './helpers/parsePath';
+
+program.version('0.2.0').option('-c, --continueWhenFailed', 'Returns with 0 if fails');
+program.parse(process.argv);
 
 const main = async () => {
   let context = null;
