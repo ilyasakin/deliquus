@@ -43,10 +43,6 @@ const validateConfig = (config: Config): void => {
     if (typeof target.pattern !== 'string') {
       throw new Error(errors.config.targets.PATTERN_NOT_STRING);
     }
-
-    if (typeof target.name !== 'string') {
-      throw new Error(errors.config.targets.NAME_NOT_STRING);
-    }
   });
 };
 
