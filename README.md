@@ -16,6 +16,20 @@ User should be configure Deliquus to match the files as she/he want.
 - Match files with multiple source directories and multiple target directories. ✔
 - Publish
 
+## Usage
+
+- Create a valid cosmiconfig file (See: [Cosmiconfig](https://github.com/davidtheclark/cosmiconfig#cosmiconfig)) that exports an object containing:
+  ```javascript
+  {
+    sources: [{ pattern: 'GLOB_PATTERN', for: 'TARGET_NAME', name: 'SOURCE_NAME' }],
+    targets: [{ pattern: 'GLOB_PATTERN', name: 'NAME' }],
+  }
+  ```
+  - Check `deliquusrc.js` file to see a working example.
+  - You can set multiple sources with multiple targets.
+  - You should reference target that you want to match the source with in for array in source object.
+  - You can set multiple targets in for. For example you can check if stories and tests existing for `components` source without redefining the same directory.
+
 ## Development
 
 - Install dependencies
