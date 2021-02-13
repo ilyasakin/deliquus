@@ -56,6 +56,15 @@ describe('validateConfig', () => {
     ).toThrowError(errors.config.sources.FOR_VALUES_NOT_STRING);
   });
 
+  it('throws an error if target specified in sources[..].for does not exist', () => {
+    expect(() =>
+      validateConfig({
+        sources: [{ pattern: '123', for: ['123', '321'] }],
+        targets: [{ pattern: '123', name: '123' }],
+      }),
+    ).toThrowError(errors.config.sources.TARGET_DOES_NOT_EXIST);
+  });
+
   it("throws an error if targets' pattern is not string", () => {
     expect(() =>
       validateConfig({ sources: [{ pattern: '123', for: ['asd'] }], targets: [{ pattern: 123 }] }),
