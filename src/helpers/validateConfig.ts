@@ -32,6 +32,10 @@ const validateConfig = (config: Config): void => {
       if (typeof value !== 'string') {
         throw new Error(errors.config.sources.FOR_VALUES_NOT_STRING);
       }
+
+      if (!config.targets.some((target) => target.name === value)) {
+        throw new Error(errors.config.sources.TARGET_DOES_NOT_EXIST);
+      }
     });
   });
 

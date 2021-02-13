@@ -7,6 +7,7 @@ const Errors = {
       FOR_NOT_ARRAY: '"config.sources[..].for" can not be anything other than array',
       FOR_VALUES_NOT_STRING:
         'Values inside "config.sources[..].for" can not be anything other than string',
+      TARGET_DOES_NOT_EXIST: 'Target specified in source.for does not exist',
     },
     targets: {
       NULL_OR_EMPTY: '"Targets" field is either null, undefined or empty',
