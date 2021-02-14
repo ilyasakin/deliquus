@@ -2,7 +2,7 @@
   "name": "deliquus",
   "version": "0.3.0",
   "description": "",
-  "main": "src/deliquus.ts",
+  "main": "deliquus.js",
   "scripts": {
     "start": "node dist/deliquus.js",
     "dev": "nodemon --exec babel-node --extensions '.js,.ts' src/deliquus.ts",
@@ -14,7 +14,15 @@
     "type": "git",
     "url": "git+https://github.com/iakindev/deliquus.git"
   },
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "test",
+    "story",
+    "husky",
+    "missing tests",
+    "missing stories",
+    "missing files"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
