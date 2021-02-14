@@ -1,23 +1,12 @@
 # Deliquus
 
-**Deliquus is a latin adjective meaning missing, wanting, lacking.**
-
 **Deliquus aims to find missing test, story files and throw out an error. So you can use with husky and prevent developer from pushing the code before adding a test or story, or you know... anything.**
 
-## Goal
-
-We want deliquus to be configurable/customizable on every level possible.  
-We don't want it to be a tool that only finds tests and stories.  
-User should be configure Deliquus to match the files as she/he want.
-
-## Roadmap
-
-- Match files with single source directory and single target directory. ✔
-- Match files with multiple source directories and multiple target directories. ✔
-- Publish
+_Deliquus is a latin adjective meaning missing, wanting, lacking._
 
 ## Usage
 
+- Install with `yarn add --dev deliquus` or `npm install deliquus --save-dev`
 - Create a valid cosmiconfig file (See: [Cosmiconfig](https://github.com/davidtheclark/cosmiconfig#cosmiconfig)) that exports an object containing:
   ```javascript
   {
@@ -29,6 +18,7 @@ User should be configure Deliquus to match the files as she/he want.
   - You can set multiple sources with multiple targets.
   - You should reference target that you want to match the source with in for array in source object.
   - You can set multiple targets in for. For example you can check if stories and tests existing for `components` source without redefining the same directory.
+- Execute with `yarn deliquus` or `npm run deliquus` or bind to husky (recommended).
 
 ## Development
 
