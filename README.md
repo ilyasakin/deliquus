@@ -18,6 +18,7 @@ User should be configure Deliquus to match the files as she/he want.
 
 ## Usage
 
+- Install with `yarn add --dev deliquus` or `npm install deliquus --save-dev`
 - Create a valid cosmiconfig file (See: [Cosmiconfig](https://github.com/davidtheclark/cosmiconfig#cosmiconfig)) that exports an object containing:
   ```javascript
   {
@@ -29,6 +30,7 @@ User should be configure Deliquus to match the files as she/he want.
   - You can set multiple sources with multiple targets.
   - You should reference target that you want to match the source with in for array in source object.
   - You can set multiple targets in for. For example you can check if stories and tests existing for `components` source without redefining the same directory.
+- Execute with `yarn deliquus` or `npm run deliquus` or bind to husky (recommended).
 
 ## Development
 
