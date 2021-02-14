@@ -1,5 +1,7 @@
 # Deliquus
 
+![image](https://user-images.githubusercontent.com/23039187/107879699-7721b600-6eeb-11eb-8373-d686ac6887b4.png)
+
 **Deliquus aims to find missing test, story files and throw out an error. So you can use with husky and prevent developer from pushing the code before adding a test or story, or you know... anything.**
 
 _Deliquus is a latin adjective meaning missing, wanting, lacking._
