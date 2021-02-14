@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'chalk';
 import glob from 'glob';
