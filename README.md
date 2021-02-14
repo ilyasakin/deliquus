@@ -1,20 +1,8 @@
 # Deliquus
 
-**Deliquus is a latin adjective meaning missing, wanting, lacking.**
-
 **Deliquus aims to find missing test, story files and throw out an error. So you can use with husky and prevent developer from pushing the code before adding a test or story, or you know... anything.**
 
-## Goal
-
-We want deliquus to be configurable/customizable on every level possible.  
-We don't want it to be a tool that only finds tests and stories.  
-User should be configure Deliquus to match the files as she/he want.
-
-## Roadmap
-
-- Match files with single source directory and single target directory. ✔
-- Match files with multiple source directories and multiple target directories. ✔
-- Publish
+_Deliquus is a latin adjective meaning missing, wanting, lacking._
 
 ## Usage
 
