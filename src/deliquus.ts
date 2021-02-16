@@ -14,7 +14,7 @@ import validateConfig from './helpers/validateConfig';
 import parsePath from './helpers/parsePath';
 import Explorer from './types/Explorer';
 
-program.version('0.3.0').option('-c, --continueWhenFailed', 'Returns with 0 if fails');
+program.version('0.3.5').option('-c, --continueWhenFailed', 'Returns with 0 if fails');
 program.parse(process.argv);
 
 const main = async () => {

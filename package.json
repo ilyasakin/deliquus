@@ -1,6 +1,6 @@
 {
   "name": "deliquus",
-  "version": "0.3.0",
+  "version": "0.3.5",
   "description": "A coverage tool that help you find missing tests, stories etc.",
   "main": "deliquus.js",
   "scripts": {
