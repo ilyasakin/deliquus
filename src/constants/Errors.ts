@@ -1,4 +1,6 @@
-const Errors = {
+import ErrorsType from '../types/ErrorsType';
+
+const Errors: ErrorsType = {
   config: {
     sources: {
       NULL_OR_EMPTY: '"Sources" field is either null, undefined or empty',

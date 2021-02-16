@@ -1,8 +1,8 @@
 {
   "name": "deliquus",
-  "version": "0.3.0",
-  "description": "",
-  "main": "src/deliquus.ts",
+  "version": "0.3.5",
+  "description": "A coverage tool that help you find missing tests, stories etc.",
+  "main": "deliquus.js",
   "scripts": {
     "start": "node dist/deliquus.js",
     "dev": "nodemon --exec babel-node --extensions '.js,.ts' src/deliquus.ts",
@@ -12,10 +12,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iakindev/deliquus.git"
+    "url": "https://github.com/iakindev/deliquus.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli",
+    "test",
+    "story",
+    "husky",
+    "missing tests",
+    "missing stories",
+    "missing files"
+  ],
+  "author": "İlyas Akın <ashnwor@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/iakindev/deliquus/issues"
