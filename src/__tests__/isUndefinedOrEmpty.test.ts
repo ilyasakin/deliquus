@@ -2,6 +2,7 @@ import isUndefinedOrEmpty from '../helpers/isUndefinedOrEmpty';
 
 describe('isUndefinedOrEmpty', () => {
   it('handles correctly an undefined value', () => {
+    // @ts-expect-error for test purposes
     expect(isUndefinedOrEmpty(undefined)).toBe(true);
   });
 
