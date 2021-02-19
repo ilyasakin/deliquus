@@ -1,6 +1,6 @@
 {
   "name": "deliquus",
-  "version": "0.3.6-1",
+  "version": "0.3.7",
   "description": "A coverage tool that help you find missing tests, stories etc.",
   "main": "deliquus.js",
   "bin": {
@@ -12,7 +12,7 @@
     "dev:debug": "DEBUG=1 yarn dev",
     "build": "yarn run babel --extensions '.js,.ts' --ignore '**/__tests__' src -d dist --copy-files",
     "postbuild": "cp package.json dist && cp README.md dist",
-    "test": "DEBUG=1 jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
