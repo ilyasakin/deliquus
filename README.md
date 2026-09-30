@@ -24,6 +24,16 @@ _Deliquus is a latin adjective meaning missing, wanting, lacking._
 
 ## Development
 
+Use Node.js 22 or 24 LTS and Yarn 1.22.22. CI validates both Node versions.
+Dependencies are locked: install with `yarn install --frozen-lockfile`.
+
+Run `yarn typecheck`, `yarn test --runInBand`, and `yarn test:cli` before opening a PR.
+The CLI smoke test builds the executable and checks configuration discovery,
+missing/present target files, and failure/continue exit codes.
+
+Publishing is limited to non-prerelease GitHub releases tagged `v<package version>`,
+after the Node.js 22/24 checks pass. Pushing to `main` does not publish to npm.
+
 - Install dependencies
 
   ```bash

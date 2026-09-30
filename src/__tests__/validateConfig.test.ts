@@ -67,7 +67,7 @@ describe('validateConfig', () => {
   it('throws an error if target specified in sources[..].for does not exist', () => {
     expect(() =>
       validateConfig({
-        sources: [{ pattern: 'test', for: ['123', '321'] }],
+        sources: [{ name: 'source', pattern: 'test', for: ['123', '321'] }],
         targets: [{ pattern: 'test', name: '123' }],
       }),
     ).toThrowError(errors.config.sources.TARGET_DOES_NOT_EXIST);
@@ -76,7 +76,7 @@ describe('validateConfig', () => {
   it("throws an error if targets' pattern is not string", () => {
     expect(() =>
       validateConfig({
-        sources: [{ pattern: 'test', for: ['asd'] }],
+        sources: [{ name: 'source', pattern: 'test', for: ['asd'] }],
         // @ts-expect-error Runtime Test
         targets: [{ pattern: 123, name: 'asd' }],
       }),

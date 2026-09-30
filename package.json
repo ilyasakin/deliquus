@@ -10,9 +10,12 @@
     "start": "node dist/deliquus.js",
     "dev": "nodemon --exec babel-node --extensions '.js,.ts' src/deliquus.ts",
     "dev:debug": "DEBUG=1 yarn dev",
-    "build": "yarn run babel --extensions '.js,.ts' --ignore '**/__tests__' src -d dist --copy-files",
-    "postbuild": "cp package.json dist && cp README.md dist",
-    "test": "jest"
+    "build": "babel --extensions '.js,.ts' --ignore '**/__tests__,**/mocks' src -d dist --copy-files --no-copy-ignored",
+    "postbuild": "node scripts/prepare-package.cjs",
+    "test": "jest",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "test:cli": "npm run build && node scripts/test-cli.cjs",
+    "prebuild": "node scripts/clean.cjs"
   },
   "repository": {
     "type": "git",
@@ -60,5 +63,6 @@
     "cosmiconfig": "^7.0.0",
     "glob": "^7.1.6",
     "ts-node": "^9.1.1"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
